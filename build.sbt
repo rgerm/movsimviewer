@@ -11,6 +11,6 @@ lazy val root = (project in file(".")).
     name := "movscala",
     libraryDependencies += scalaTest % Test,
     resolvers += Resolver.mavenLocal,
-    libraryDependencies += "org.movsim" % "MovsimViewer" % "1.7.0-SNAPSHOT",
+    libraryDependencies += "org.movsim" % "MovsimCore" % "1.7.0-SNAPSHOT",
     libraryDependencies += "org.scala-lang" % "scala-swing" % "2.10.7"
   )

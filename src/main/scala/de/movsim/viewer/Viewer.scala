@@ -3,8 +3,6 @@ package de.movsim.viewer
 import java.util.Properties
 
 import org.movsim.input.{MovsimCommandLine, ProjectMetaData}
-import org.movsim.logging.Logger
-import org.movsim.viewer.ui.{LogWindow, ViewProperties}
 
 import scala.swing._
 import scala.swing.event.{MouseClicked, MouseDragged, MousePressed}
@@ -15,11 +13,8 @@ object Viewer extends SimpleSwingApplication {
   val projectMetaData: ProjectMetaData = ProjectMetaData.getInstance
 
   override def main(args: Array[String]): Unit = {
-    LogWindow.setupLog4JAppender()
-
-    Logger.initializeLogger()
     MovsimCommandLine.parse(args)
-    properties = ViewProperties.loadProperties(projectMetaData)
+    properties = ViewConfig.loadProperties(projectMetaData)
     super.main(args)
   }
 
@@ -46,8 +41,7 @@ object Viewer extends SimpleSwingApplication {
     listenTo(canvas.mouse.clicks, canvas.mouse.moves)
 
     reactions += {
-      case MouseClicked(_, point, _, _, _) =>
-        println("  -- mouse clicked x=" + point.x + "    y=" + point.y)
+      case MouseClicked(_, point, _, _, _) => println("  -- mouse clicked x=" + point.x + "    y=" + point.y)
       case e: MousePressed => startDrag(e)
       case e: MouseDragged => doDrag(e)
     }
@@ -70,6 +64,5 @@ object Viewer extends SimpleSwingApplication {
         canvas.setTransform()
       }
     }
-
   }
 }

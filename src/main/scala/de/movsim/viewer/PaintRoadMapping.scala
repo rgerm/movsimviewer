@@ -45,8 +45,7 @@ object PaintRoadMapping {
       val arc = roadMapping.asInstanceOf[RoadMappingArc]
       LOG.debug("lateralOffset={},  paint RoadMappingArc={}", lateralOffset, arc.toString)
       posTheta = roadMapping.startPos
-      val angSt = arc.startAngle + (if (arc.clockwise) 0.5 * Math.PI
-      else -0.5 * Math.PI)
+      val angSt = arc.startAngle + (if (arc.clockwise) 0.5 * Math.PI else -0.5 * Math.PI)
       val radius = arc.radius
       val dx = radius * Math.cos(angSt)
       val dy = radius * Math.sin(angSt)

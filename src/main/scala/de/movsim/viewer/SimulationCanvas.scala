@@ -19,9 +19,9 @@ class SimulationCanvas(properties: Properties) extends Panel with UpdateDrawingC
   val simulator = new Simulator(movsimInput)
   val roadNetwork = simulator.getRoadNetwork
   val simulationRunnable = simulator.getSimulationRunnable
-  simulationRunnable.setUpdateDrawingCallback(this)
 
   simulator.initialize()
+  simulationRunnable.setUpdateDrawingCallback(this)
   simulationRunnable.start()
 
   import scala.collection.JavaConversions._
@@ -46,8 +46,8 @@ class SimulationCanvas(properties: Properties) extends Panel with UpdateDrawingC
   }
 
   override def paint(g: Graphics2D): Unit = {
-    drawBackground(g)
-    drawForeground(g)
+    drawBackgroundAndRoadNetwork(g)
+    drawMovables(g)
   }
 
   override def updateDrawing(simulationTime: Double): Unit = {
@@ -75,7 +75,7 @@ class SimulationCanvas(properties: Properties) extends Panel with UpdateDrawingC
     PaintRoadMapping.paintRoadMapping(g, roadMapping)
   }
 
-  def drawBackground(g: Graphics2D): Unit = {
+  def drawBackgroundAndRoadNetwork(g: Graphics2D): Unit = {
     // Draw background here
     g.setColor(Color.green)
     g.fillRect(0, 0, preferredSize.width, preferredSize.height)
@@ -117,7 +117,7 @@ class SimulationCanvas(properties: Properties) extends Panel with UpdateDrawingC
     }
   }
 
-  def drawForeground(g: Graphics2D): Unit = {
+  def drawMovables(g: Graphics2D): Unit = {
     val simulationTime: Double = simulationRunnable.simulationTime
     import scala.collection.JavaConversions._
     for (roadSegment <- roadNetwork) {
